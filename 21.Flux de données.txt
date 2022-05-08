@@ -1,0 +1,23 @@
+Qu'est-ce qu'un descripteur de fichier ?
+	C'est un entier (int) que le noyau associe à un fichier à la demande d'un processus.
+
+Que possède chaque processus par rapport au descripteur de fichier ?
+	Chaque processus possède une table des descripteur de fichier qui lui sont associé.
+
+Peut-on trouver le nom d'un fichier à travers son flux ou son descripteur de fichier ?
+	Non, il faut l'avoir sauvé avant.
+
+Que retourne fopen() en cas d'erreur ?
+	NULL et la variable errno est posisionné.
+
+Comment fermer tous les flux ouvert par un processus ?
+	fcloseall().
+
+Donner les 3 niveaux de buffer concernant les flux ?
+	- flux (buffer) (biblio C)
+	- fichier (mémoire cache) (noyau linux)
+	- controleur disque (zone tampon) (périphérique)
+
+Que permet la fonction fdopen() ?
+	Cette fonction permet d'ouvrir un flux à partir d'un descripteur de fichier.
+

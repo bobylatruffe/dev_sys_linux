@@ -1,0 +1,96 @@
+--------------------------------
+Développement système sous Linux
+--------------------------------
+
+	--------------------------
+	Chapitre 2 : Les processus
+	--------------------------
+
+Concernant la mémoire, dans quoi s'exécute les processus ?
+Les processus s'exécute dans des espaces mémoire distinct.
+
+Quel composant, dans les processeur moderne permet de gérer la mémoire de manière abstraite ?
+C'est le composant MMU "Memory Managment Unit".
+
+De manière très simpliste, qu'est-ce que le mécanisme d'ordonnencement ?
+C'est la possibilité au noyau de repartir de manière équitable le processeur au différent processus.
+
+Quel appel système permet de créer un nouveau processus ?
+pid_t fork(void); de <unistd.h>
+
+Quel appel système permet de connaître le PID d'un processus ?
+pid_t getpid(void);
+
+Après un fork(), comment connaître que nous sommes dans le processus père ou fils ?
+Il faut tester la valeur de fork(), qui est 0 si nous sommes dans le fils,
+sinon il retourne le PID du fils.
+
+Comment un processus fils peut récupérer le pid de son parent ?
+pid_t getppid(void);
+
+Après un fork(), qu'est-ce que la notion "d'héritage du père" ?
+Après un fork, un fils hérite des copies des données de son père, mais aussi de l'environnement (table des descriptions des fichiers, etc).
+
+Qu'est-ce que la notion de "copy-on-write" ?
+Après un fork, le fils n'hérite pas directement une copie de son père, c'est seulement quand le fils modifie une donnée que celle-ci est d'abord véritablement copié dans le fils. Sinon, avant le père et le fils partage les même données.
+
+Que retourne un appel système fork() s'il y'a une erreur ?
+L'appel système fork() retourne -1 et la variable globale errno (errno.h) est positionnée.
+
+Que contient la variable $$ du shell ?
+Il contient son PID.
+
+Après un fork(), qui d'entre le père et le fils reprend son exécution ?
+C'est le père, mais ce comportement peut-être changer en modifiant le fichier sched_child_runs_first.
+
+En règle générale, sous quel identité est exécuté un processus ?
+Il est exécuté sous l'identité de l'utilisateur qui la lancé, qui à la valeur dit UID (User IDentifier).
+
+Combien d'UID existe-t-il par processus ?
+Il existe 3 UID : UID réel (utilisateur qui à lancer le processus)
+   	    	, UID effectif (privilège accordé au processus)
+		, UID sauvé (copie de l'ancien UID effectif quand il est modifier par le processus, càd des appels systèmes).
+
+
+Que permet l'attribut Set-UID ?
+Cette attribut permet à un fichier d'être exécuté avec les privilèges du proprietaire du fichier.
+
+Que pouvez-vous dire de l'attribut Set-UID et Linux ?
+Que sous Linux (contrairement à Unix et Solaris) l'attribut Set-UID n'est pas pris en compte pour les scripts.
+
+
+    -------------------------------------
+    Chapitre 3 : Exécution d'un programme
+    -------------------------------------
+
+Quel est le seul moyen de lancer un nouveau programme ?
+Le seul moyen est d'utiliser une fonction de la famille de exec().
+Mais il existe aussi des fonctions popen() et system() qui s'appuit sur fork() et exec().
+
+Que permetttent les fonctions de la famille de exec() ?
+C'est fonctions permettent de remplacer l'espace mémoire du processus appelant par le code et les données du nouveau programme.
+
+Sous Linux, quel est le seul véritable appel système pour lancer un nouveau programme ?
+execve().
+
+Que signifie les fonctions de la famille exec() qui possède comme suffixe un 'l' ?
+Que les arguments de cette fonctions est une liste d'argument variable terminé par un NULL.
+
+Que signifie les fonction de la famille exec() qui possède comme suffixe un 'v' ?
+Que les arguments de cette fonction est un tableau comme argv[] et se terminé par un NULL.
+
+Que signifie les fonction de la famille exec() qui possède comme suffixe un 'e' ?
+Que l'environnement est transmis dans un tableau envp[], alors quie les autres fonctions utilisent la variable globale environ.
+
+Que signifie les fonction de la famille exec() qui possède comme sufixer un 'p' ?
+Que ces fonctions utilisent la variable d'environnement PATH pour rechercher le nouveau programme à lancer, alors que les autres fonctions attende un chemin d'accès complet.
+
+Comment lancer un nouveau programme sans forcément remplacer le processus le lancant ?
+Il faut utiliser les fonctions de la bibliothèque system() et popen()/pclose().
+
+
+   -----------------------------------------------
+   Chapitre 4 : Environnement et ligne de commande
+   -----------------------------------------------
+
+ 

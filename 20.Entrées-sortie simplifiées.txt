@@ -1,0 +1,38 @@
+Quelles sont les 2 manières d'accéder à un fichier en C ?
+	- bas niveau à travers des appels systèmes : utilisation de descripteur de fichier
+	- haut niveau à travers la bibliothèque standard : utilisation de flux
+
+Qu'est-ce qu'un flux par rapport à un descripteur de fichier ?
+	C'est la représentation d'un accès à un fichier avec une abstraction ajoutant des informations supp au descripteur de fichier.
+
+Avec quelle fonction on ouvre un flux en C ?
+	C'est avec le fonction fopen().
+
+Sous linux, que possède tout programme à son lancement concernant les flux ?
+	De 3 flux ouvert par defaut (de type FILE *) :
+		- stdin : flux d'entrée standard : lecture seul : le clavier (D)
+		- stdout : flux de sortie standard : écriture seul : l'écran (D)
+		- stderr : flux d'erreur standard : écriture seul : l'écran  (D)
+
+Que permet la fonction sprintf() ? Donner la variante qui permet de limiter le nombre d'octet à écrire ?
+	Cette fonction permet d'écrire une chaîne de caractère formaté en son 1er argument, en prenant la 2ème chaîne (2ème argument).
+	Elle ajoute un caractère nul à la fin de son 1er argument.
+	Elle retourne le nombre de caractère écrit sans compter le caractère NULL.
+
+	snprintf()
+
+Qu'est-ce que le signal SIGSEGV ?
+	Que le programme a tenté d'écrire dans une zone qu'il n'est pas autorisé.
+
+
+Quelle fonction permet d'envoyer seulement un caractère à un flux ?
+Que retourne cette fonction si une erreur se produit ?
+	fputc(int c, FILE *flux)
+
+	Elle retourne la valeur EOF, sinon le caractère écrit.
+
+Comment écrire une chaîne de caractère dans un flux ?
+Est-ce le caractère de fin de chaîne est envoyé ? Le caractère de retour de ligne ?
+	fputs()
+
+	Non, non
