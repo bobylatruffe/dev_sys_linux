@@ -1,0 +1,49 @@
+Que représente la valeur constante OPEN_MAX définit dans limits.h ?
+	Elle représente le nombre de descripteur maximum possible.
+
+Quelles sont les constantes symboliques des descripteurs 0, 1 et 2 ?
+	STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO définit dans unistd.h
+
+Quelle sont les deux fonctions permettant d'obtenir un descripteur de fichier sur un fichier ?
+	open et creat.
+
+De manière très simpliste, que permet la fonction pipe() ?
+	Cette fonction permet d'obtenir un flux à partir d'un tube de communication.
+
+Dans la mémoire du noyau par quoi est représenté chaque processus ?
+	Chaque processus est représenté par une structure task_struct.
+
+Que contient la structure task_struct concernant les descripteurs de fichier ?
+	La strcuture task_struct contient un champ de type files_struct qui représente un tableau des descripteurs de fichiers ouvert par le processus.
+
+Que représente la structure files_struct ?
+	Cette structure est un champ d'une structure task_struct (dans la mémoire du noyau, pour chaque processus).
+	Cette structures représente un tableau des descripteurs de fichier ouvert par le processus, 
+		elle contient les attributs du descripteurs, mais aussi un pointeur vers une structure file.
+
+Que comporte la structure file d'un files_struct ?
+	Elle comporte le mode d'utilisation du descripteurs, ainsi que la position courante.
+	Mais aussi d'un pointeur vers une structure inode ou à l'accès aux données s'il s'agit de descripteur correpondant à une socket ou tube.
+
+Resumer les 3 niveaux de détails de l'implémentation des descripteurs de fichiers ?
+	Dans la mémoire du noyau, chaque processus dans sa structure task_struct possède un tableau des descripteurs ouvert.
+	Chaque élément du tableau de descripteur contient une structure files_struct, 
+		qui contient les informations sur le mode d'ouverture du fichier, la position
+		ainsi que qu'un pointeur vers le fichier véritablement (inode).
+	(img/indirections_des_descripteurs_de_fichiers.png)
+
+A quelle structure appartient la position d'un fichier lors d'une ouverture ?
+	Elle appartient à la structure file, qui est un champs de la structure files_struct, qui à son tour contient un tableua des descripteurs de fichier ouvert d'un processus.
+
+Que contient la structure file d'un descripteur de fichier ?
+	Elle contient des pointeurs de fonctions qui implémente les primitives E/S (open, read, write, lseek ...)
+
+Quand nous faisont un fork(), que deviens la structure file du père et du fils en supposant que nous avons ouvert un descripteur avec open avant de forker ?
+	Le père et le fils ont chacun une copie des descripteurs ouvert, mais il partage la même structure file.
+	Donc quand le père modifie la position (lseek) de son descripteur, comme l'information de position 
+	et dans la structure file, alors le descripteur du fils voit aussi la position se déplacer.
+
+Que permet la fonction dup() ?
+	Cette fonction permet d'obtenir une copie du descripteur passé en son argument.
+	Cet appel système garanti que le numéro retourner sera le 1er disponnible dans la table des descriptions du processus.
+
