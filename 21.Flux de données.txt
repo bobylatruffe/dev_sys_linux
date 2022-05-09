@@ -1,7 +1,7 @@
 Qu'est-ce qu'un descripteur de fichier ?
 	C'est un entier (int) que le noyau associe à un fichier à la demande d'un processus.
 
-Que possède chaque processus par rapport au descripteur de fichier ?
+Que possède chaque processus par rapport aux descripteur de fichier ?
 	Chaque processus possède une table des descripteur de fichier qui lui sont associé.
 
 Peut-on trouver le nom d'un fichier à travers son flux ou son descripteur de fichier ?
@@ -20,4 +20,14 @@ Donner les 3 niveaux de buffer concernant les flux ?
 
 Que permet la fonction fdopen() ?
 	Cette fonction permet d'ouvrir un flux à partir d'un descripteur de fichier.
+
+Peut-on déplacer la tête de lecture dans un tube de communication ?
+	Non, nous ne pouvons qu'avancer la tête de lecture quand lisant les données.
+	Nous ne pôuvons pas reculer la position de la tête de lecture.
+
+Quelle fonction utiliser pour connaître la position de la tête de lecture d'un flux ?
+	ftell().
+
+Que permet la fonction rewind ?
+	Cettte fonction permet de ramener la tête de lecture/écriture d'un flux au début.
 
