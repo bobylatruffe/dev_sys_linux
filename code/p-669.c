@@ -17,8 +17,6 @@ int main() {
 
   puts("bonour");
 
-  
-
   fcloseall();
   return 0;
 }

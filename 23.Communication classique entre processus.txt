@@ -1,0 +1,14 @@
+Que permet l'appel système pipe() ?
+	Il permet de créer un tube de communication au sein du noyau.
+
+
+Que représente tube[0] lors d'un pipe() ?
+Et tube[1] ?
+	La sortie d'un tube ouvert en lecture (ou on lira les données).
+
+	L'entrée d'un tube en écriture (ou on écrira les donénes).
+
+Si on veut faire communiquer un processus père avec son fils à l'aide d'un tube, qu'est-ce qu'il faudra faire dans le tube ?
+	Il faut fermer la sortie du tube pour le processus père (tube[0]).
+	Fermer l'entrée du tube pour le processus fils (tube[1]).
+
