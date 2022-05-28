@@ -1,0 +1,14 @@
+Que renvoi sleep quand un signal interrompt le sommeil du processus ?
+	sleep retourne le nombre de secondes restantes sur la durée initial.
+
+A partir de quel appel système est implémenté sleep ?
+	à partir de l'appel système alarm().
+	Il est fortement deconseiller d'utiliser sleep et alarm dans la même portion de code.
+
+Comment afficher l'heure courant dans programme ?
+	#include<time.h>
+	
+	time_t temps = 0;
+	time(&temps);
+	printf("%s", ctime(&temps));
+

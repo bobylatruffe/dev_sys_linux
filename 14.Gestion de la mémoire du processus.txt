@@ -1,0 +1,36 @@
+Quand est alloué l'emplacement des variables globales et des variables statiques au sein des fonctions ?
+	Elles sont allouées lors du chargement du programme.
+
+Quand quelle partie les variables locales d'une fonction et les arguments d'une fonction sont allouées ?
+	Dans la pile lors de l'appel de la fonction.
+
+Qu'est-ce que la mémoire vive dynamique ?
+	C'est la RAM, une mémoire de travail, utilisé pour stocker les données et les programmes en cours d'exécution.
+
+
+Espace d'adressage <=> comment la mémoire est organisée ?
+		      <=> l'ensemble des adresses mémoire valides lors de l'exécution d'un programme
+		      <=> l'espace d'adressage change au cours de l'exécution
+
+La mémoire théorique est linéaire (tableau) de longueur une puissance de 2.
+L'espace d'adressage n'est pas directement liée à la méoire vive, ni au modèle d'adressage du processus 32/64 bits. 
+
+Sous linux la mémoire est divisé en segment.
+
+Tas -> allocation dynamique
+Pile -> variables ocales, arguments fonctions
+
+Les segments utilisés par un processus : cat/proc/PID/maps
+
+La mémoire virtuelle ? Segmentation
+
+Qu'est-ce qu'une mémoire virtuelle ? 
+	C'est une fonction qui transforme l'espace virtuel (du programme) en l'espace physique (de la machine).
+
+Code relatif vs code indexé
+
+Exécuter un gros programme quand y'a pas assez de mémoire ?
+	- recouvrement / overlay
+
+Multâche
+	fragmentation / défragmentation
