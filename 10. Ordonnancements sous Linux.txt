@@ -1,0 +1,64 @@
+Comment connaiître l'état d'un processus ?
+	ps aux
+	top colonne S
+	fichier /proc/<pid>/status ligne State
+
+Qu'est-ce que ça veut dire d'un processus (tâche = thread) est en état R ?
+	La tâche est en cours de fonctionnement, elle effectue un travail actif.
+	La tâche à accès au processeur.
+
+Qu'est-ce que ça veut dire d'un processus (tâche = thread) est en état S ?
+	La tâche est en attente d'un évenement extérieur, mais peut être réveillé prématurément si elle recoit un signal.
+	Sommeil interruptible.
+
+Qu'est-ce que ça veut dire d'un processus (tâche = thread) est en état D ?
+	La tâche est en attente absolue d'un élément extérieur, rien ne peut la réveiller tant que l'événement ce ne produit pas.
+	Sommeil ininterruptible.
+
+Qu'est-ce que ça veut dire d'un processus (tâche = thread) est en état T ?
+	La tâche est temporairement arrêtée par un signal, elle ne s'exécute plus, et ne réagira qu'à un signal de rédémarrage.
+
+Qu'est-ce que ça veut dire d'un processus (tâche = thread) est en état Z ?
+	La tâche s'est terminée mais n'a pas encore lu son statut de temrinaison (par le processur père).
+
+Quels sont les deux descripteurs d'état d'un processus qui permettent de décrire un processus en sommeil ininterruptible et interruptible ?
+	S pour sleeping (interuptible) et D pour down (ininterruptible)
+
+Quel est le signal envoyer par le terminal quand on fait un ctrl+z ?
+Et quand on utilise fg ou bg ?
+	SIGSTOP
+
+	SIGCONT
+
+<anki>
+
+Qu'est-ce que l'ordonnanceur temps-partagé ?
+	C'est quand le temps CPU est partagé de manière assez équitable entre les différents processus.
+
+Qu'est-ce que le multitâche préemptif ?
+	C'est quand le noyau permet d'arrêter un processus pour laisser un autre lorsque ce processus à consommer son quantum.
+
+Y'a-t-il une différence entre l'etat Pret et Running pour les commandes PS ou /proc/<pid>/status ?
+	Non pour ces commandes c'est la même chose.
+
+Quand un processus est en sommeil (S) et qu'il se réveil, est-il directement dans un état Running ?	
+	Non, il passe dans l'état Ready
+
+Comment le noyau résoud le problème du fait qu'un processus réalise bcp de calcule sans forcément réaliser bcp d'E/S ?
+	Le principe de priorité double :
+		Chaque processus se voit attribuer une valeur statique de priorité (qui peut être modifier par un appel système).
+		Le scheduler utilise cette valeur pour calculer une nouvelle valeur de priorité dynamique, qui remis à jour chaque fois que le scheduler traite un processus.
+
+Quand est-ce la valeur de priorité dynamique augment ou décroit ?
+	Quand un processus utilise bcp le cpu, cette valeur dynamique décroit.
+	Et plus un processus n'utlise pas le cpu, plus cette valeur dynamique augmente.
+
+Avec quel appel système un processus peut modifier sa valeur statique de priorité ?
+	nice()
+
+Que représente l'argument de l'appel système nice(int increment) ?
+	Sa gentilesse par rapport autre processus.
+	Plus la valeur est élévé plus, plus sa priorité est base.
+
+<anki>
+
